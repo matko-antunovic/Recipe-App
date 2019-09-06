@@ -15,16 +15,15 @@ const controlSearch=async ()=>{
     if(query){
         //new search object and add to state
         state.search=new Search(query);
-
-        //spinner,reset UI
-
-
-
+        console.log(state.search)
+        //spinner,reset UI 
+        searchView.clearInput();
+        searchView.clearResults();
         //search for recipes
         await state.search.getData();
 
         //render UI
-        console.log(state.search.result);
+        searchView.renderResults(state.search.result)
     }
 
 }
