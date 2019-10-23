@@ -8,32 +8,34 @@ export const clearResults=()=>elements.searchResultList.innerHTML="";
 
 export const renderResults=(recipes)=>{
     console.log("RECIPES", recipes)
-    recipes.forEach(el=>renderRecipe(el))
+    recipes.forEach(el=>renderRecipe(el.recipe))
 }
 
-const limitRecipeTitle=(title,limit=17)=>{
-    const newTitle=[];
-    if(title.length>limit){
-        title.split(" ").reduce((acc,cur)=>{
-            if(acc+cur.length <= limit){
+export const limitRecipeTitle = (title, limit = 17) => {
+    const newTitle = [];
+    if (title.length > limit) {
+        title.split(' ').reduce((acc, cur) => {
+            if (acc + cur.length <= limit) {
                 newTitle.push(cur);
             }
             return acc + cur.length;
-        },0);
+        }, 0);
+        return `${newTitle.join(' ')} ...`;
     }
-    return `${newTitle.join(" ")} ...)`;
+    return title;
 }
 
 const renderRecipe=recipe=>{
+    console.log(recipe.label)
     const markup=`
     <li>
-    <a class="results__link" href="#${recipe.recipe_id}">
+    <a class="results__link" href="#${recipe.calories}">
         <figure class="results__fig">
-            <img src="${recipe.image_url}" alt="Title">
+            <img src="${recipe.image}" alt="Title">
         </figure>
         <div class="results__data">
-            <h4 class="results__name">${limitRecipeTitle(recipe.title)}</h4>
-            <p class="results__author">${recipe.publisher}</p>
+            <h4 class="results__name">${limitRecipeTitle(recipe.label)}</h4>
+            <p class="results__author">${recipe.source}</p>
         </div>
     </a>
     </li>
