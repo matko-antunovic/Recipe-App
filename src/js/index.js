@@ -15,7 +15,6 @@ const controlSearch=async ()=>{
     if(query){
         //new search object and add to state
         state.search=new Search(query);
-        console.log(state.search)
         //spinner,reset UI 
         searchView.clearInput();
         searchView.clearResults();
@@ -23,8 +22,8 @@ const controlSearch=async ()=>{
 
         //search for recipes
         await state.search.getData();
-
-        //render UI
+        
+        //render UIs
         clearLoader();
         searchView.renderResults(state.search.result)
     }
@@ -35,3 +34,13 @@ elements.searchForm.addEventListener("submit", e=>{
     controlSearch();
 })
 
+elements.searchResPages.addEventListener("click", e=>{
+    const btn=e.target.closest(".btn-inline")
+    if(btn){
+        const goToPage=parseInt(btn.dataset.goto, 10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result,goToPage)
+
+    }
+    
+})

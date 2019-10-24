@@ -5,14 +5,12 @@ export default class Search{
         this.query=query;
     }
     async getData(){
-        
-        const key="6236f72eae1dbf656fc81540a2ec588b";
-        const app_key="57f2d254";
+        const key="4ff6aaa721ebf30f34b8ce8a16051103";
     try{
         const proxy="https://cors-anywhere.herokuapp.com/";
-        const res=await axios(`${proxy}https://api.edamam.com/search?q=${this.query}&app_id=${app_key}&app_key=${key}`);
-        this.result=res.data.hits;
-        console.log(this.result)
+        const res=await axios(`${proxy}http://food2fork.com/api/search?key=${key}&q=${this.query}`);
+        this.result=res.data.recipes;
+  
     }catch(err){
         alert(err)
     }
